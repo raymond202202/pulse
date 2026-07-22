@@ -7,6 +7,7 @@ import { QueryParamsEditor } from './QueryParamsEditor'
 import { HeadersEditor } from './HeadersEditor'
 import { BodyEditor } from './BodyEditor'
 import { AuthConfig } from './AuthConfig'
+import { RequestTabs } from './RequestTabs'
 import { useState } from 'react'
 
 type Tab = 'params' | 'headers' | 'body' | 'auth' | 'scripts'
@@ -30,6 +31,7 @@ export function RequestBuilder({ onSend }: Props) {
 
   return (
     <div className="request-builder">
+      <RequestTabs />
       {/* URL Bar */}
       <div className="url-bar">
         <MethodSelector />

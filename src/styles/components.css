@@ -320,6 +320,84 @@
 .status-error { color: var(--status-error); }
 
 /* =============================================
+   Request Tabs
+   ============================================= */
+.request-tabs-bar {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  flex-shrink: 0;
+  min-height: 30px;
+}
+.request-tabs-list {
+  display: flex;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.request-tabs-list::-webkit-scrollbar { display: none; }
+.request-tab {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  font-size: 10px;
+  border-right: 1px solid var(--border-color);
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  color: var(--text-muted);
+  background: transparent;
+  transition: all 0.1s;
+  min-width: 0;
+}
+.request-tab:hover {
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+}
+.request-tab.active {
+  background: var(--bg-primary);
+  border-bottom-color: var(--pulse-primary);
+  color: var(--text-primary);
+}
+.request-tab-method {
+  font-weight: 700;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+.request-tab-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+.request-tab-close {
+  padding: 1px;
+  border-radius: 3px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.request-tab:hover .request-tab-close { opacity: 1; }
+.request-tab.active .request-tab-close { opacity: 0.6; }
+.request-tab-close:hover { color: var(--status-error); background: var(--bg-hover); opacity: 1 !important; }
+
+.request-tab-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  color: var(--text-muted);
+  border-left: 1px solid var(--border-color);
+  flex-shrink: 0;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+.request-tab-add:hover { color: var(--pulse-primary); background: var(--pulse-primary-bg); }
+
+/* =============================================
    Request Builder
    ============================================= */
 .request-builder {
