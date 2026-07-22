@@ -1690,3 +1690,13 @@
   color: var(--pulse-primary);
   font-size: 11px;
 }
+
+/* Syntax Highlighting for JSON */
+.syn-key { color: var(--pulse-primary); }
+.syn-string { color: #16a34a; }
+.syn-number { color: #dc2626; }
+.syn-boolean { color: #d97706; }
+.syn-null { color: #9ca3af; }
+[data-theme='dark'] .syn-string { color: #4ade80; }
+[data-theme='dark'] .syn-number { color: #f87171; }
+[data-theme='dark'] .syn-boolean { color: #fbbf24; }

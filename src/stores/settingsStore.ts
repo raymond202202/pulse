@@ -36,9 +36,9 @@ const defaultSettings: AppSettings = {
   requestTimeout: 30,
   historyLimit: 200,
 
-  aiProvider: 'openai',
+  aiProvider: 'deepseek',
   aiEndpoint: '',
-  aiModel: 'gpt-4o',
+  aiModel: 'deepseek-chat',
   aiApiKey: '',
   aiContextEnabled: true,
 }

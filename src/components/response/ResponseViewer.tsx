@@ -122,8 +122,8 @@ export function ResponseViewer() {
             )}
             <pre className="response-body-text" dangerouslySetInnerHTML={{
               __html: searchText
-                ? highlightText(escapeHtml(formatResponseBody(response.body)), searchText)
-                : escapeHtml(formatResponseBody(response.body))
+                ? highlightText(renderResponseBody(response.body), searchText)
+                : renderResponseBody(response.body)
             }} />
           </div>
         )}
@@ -144,6 +144,41 @@ export function ResponseViewer() {
   )
 }
 
+function formatBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+}
+
+function formatResponseBody(body: string): string {
+  try {
+    return JSON.stringify(JSON.parse(body), null, 2)
+  } catch {
+    return body
+  }
+}
+
+function renderResponseBody(body: string): string {
+  const formatted = formatResponseBody(body)
+  const isJson = (() => { try { JSON.parse(body); return true } catch { return false } })()
+  if (isJson) return syntaxHighlightJson(formatted)
+  return escapeHtml(formatted)
+}
+
+function syntaxHighlightJson(json: string): string {
+  let out = json
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+  out = out.replace(/(&quot;(?:[^&]|\\.)*&quot;)\s*:/g, '<span class="syn-key">$1</span>:')
+  out = out.replace(/:\s*(&quot;(?:[^&]|\\.)*&quot;)/g, ': <span class="syn-string">$1</span>')
+  out = out.replace(/:\s*(\d+(?:\.\d+)?)/g, ': <span class="syn-number">$1</span>')
+  out = out.replace(/:\s*(true|false)\b/g, ': <span class="syn-boolean">$1</span>')
+  out = out.replace(/:\s*(null)\b/g, ': <span class="syn-null">$1</span>')
+  return out
+}
+
 function highlightText(text: string, query: string): string {
   if (!query.trim()) return text
   const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -157,18 +192,4 @@ function escapeHtml(text: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
-}
-
-function formatBytes(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
-}
-
-function formatResponseBody(body: string): string {
-  try {
-    return JSON.stringify(JSON.parse(body), null, 2)
-  } catch {
-    return body
-  }
 }
