@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useRequestStore } from '../../stores/requestStore'
-import { Clock, HardDrive, AlertCircle, Code, Search } from 'lucide-react'
+import { Clock, HardDrive, AlertCircle, Code, Copy, Check, Search } from 'lucide-react'
 import { useState } from 'react'
 import { CodeGenerator } from './CodeGenerator'
 
@@ -12,6 +12,16 @@ export function ResponseViewer() {
   const [activeTab, setActiveTab] = useState<Tab>('body')
   const [showCodeGen, setShowCodeGen] = useState(false)
   const [searchText, setSearchText] = useState('')
+  const [copyOk, setCopyOk] = useState(false)
+
+  const handleCopyResponse = async () => {
+    if (!response) return
+    try {
+      await navigator.clipboard.writeText(formatResponseBody(response.body))
+      setCopyOk(true)
+      setTimeout(() => setCopyOk(false), 2000)
+    } catch {}
+  }
 
   if (loading) {
     return (
@@ -69,6 +79,14 @@ export function ResponseViewer() {
           >
             <Code size={12} />
             {t('generateCode')}
+          </button>
+          <button
+            onClick={handleCopyResponse}
+            className="response-action-btn"
+            title="Copy response body"
+          >
+            {copyOk ? <Check size={12} /> : <Copy size={12} />}
+            {copyOk ? t('copied') : t('copyCode')}
           </button>
         </div>
       </div>

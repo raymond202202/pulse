@@ -9,7 +9,7 @@ import { AiPanel } from './components/ai/AiPanel'
 import { useRequestStore } from './stores/requestStore'
 import { useHistoryStore } from './stores/historyStore'
 import { useThemeStore } from './stores/themeStore'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import type { HistoryEntry } from './types'
 
 type Panel = 'collection' | 'history' | 'none'
@@ -25,6 +25,17 @@ export default function App() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
+
+  // Ctrl+Enter keyboard shortcut to send
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        handleSend()
+      }
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  })
 
   const handleSend = async () => {
     if (!request.url.trim()) return
