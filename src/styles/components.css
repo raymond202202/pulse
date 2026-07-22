@@ -1448,6 +1448,16 @@
 .ie-btn.primary:hover { background: var(--pulse-primary-hover); }
 .ie-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
+.ie-file-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ie-file-hint {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
 .ie-textarea {
   width: 100%;
   padding: 8px;

@@ -1,8 +1,8 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useCollectionStore } from '../../stores/collectionStore'
 import { useRequestStore } from '../../stores/requestStore'
-import { Download, Upload, X, Check, AlertCircle } from 'lucide-react'
+import { Download, Upload, X, Check, AlertCircle, FileText } from 'lucide-react'
 import type { ApiRequest, Collection, KeyValue } from '../../types'
 
 interface Props {
@@ -18,7 +18,40 @@ export function ImportExport({ onClose }: Props) {
   const [importError, setImportError] = useState('')
   const [importOk, setImportOk] = useState(false)
   const [exportFormat, setExportFormat] = useState<'pulse' | 'postman'>('pulse')
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
+  // --- File open handler ---
+  const handleOpenFile = async () => {
+    try {
+      // Electron native dialog
+      if (window.electronAPI?.openFileDialog) {
+        const content = await window.electronAPI.openFileDialog()
+        if (content) {
+          setImportJson(content)
+          setImportError('')
+          setImportOk(false)
+        }
+      } else {
+        // Fallback: HTML file input
+        fileInputRef.current?.click()
+      }
+    } catch {
+      fileInputRef.current?.click()
+    }
+  }
+
+  const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = () => {
+      setImportJson(reader.result as string)
+      setImportError('')
+      setImportOk(false)
+    }
+    reader.readAsText(file)
+    e.target.value = '' // Allow re-selecting same file
+  }
   // --- Export ---
   const exportData = useCallback(() => {
     const data = exportFormat === 'pulse'
@@ -124,6 +157,19 @@ export function ImportExport({ onClose }: Props) {
           </div>
         ) : (
           <div className="ie-import">
+            <div className="ie-file-actions">
+              <button onClick={handleOpenFile} className="ie-btn">
+                <FileText size={12} /> 从文件选择
+              </button>
+              <span className="ie-file-hint">或粘贴 JSON</span>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".json"
+                onChange={handleFileSelected}
+                style={{ display: 'none' }}
+              />
+            </div>
             <textarea
               value={importJson}
               onChange={(e) => { setImportJson(e.target.value); setImportError(''); setImportOk(false) }}
