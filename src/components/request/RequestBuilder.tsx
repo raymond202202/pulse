@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next'
-import { Send, Loader2 } from 'lucide-react'
 import { useRequestStore } from '../../stores/requestStore'
 import { MethodSelector } from './MethodSelector'
 import { UrlBar } from './UrlBar'
@@ -8,6 +7,7 @@ import { HeadersEditor } from './HeadersEditor'
 import { BodyEditor } from './BodyEditor'
 import { AuthConfig } from './AuthConfig'
 import { RequestTabs } from './RequestTabs'
+import { Send, Loader2 } from 'lucide-react'
 import { useState } from 'react'
 
 type Tab = 'params' | 'headers' | 'body' | 'auth' | 'scripts'

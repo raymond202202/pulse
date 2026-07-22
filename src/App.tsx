@@ -66,9 +66,14 @@ export default function App() {
 
       const startTime = performance.now()
 
+      // 30s timeout
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 30000)
+
       const fetchOptions: RequestInit = {
         method: request.method,
         headers,
+        signal: controller.signal,
       }
 
       if (request.body?.mode !== 'none' && request.body?.raw) {
@@ -92,6 +97,8 @@ export default function App() {
       })
 
       const bodyText = await resp.text()
+
+      clearTimeout(timeoutId)
 
       setResponse({
         status: resp.status,
@@ -117,7 +124,12 @@ export default function App() {
         timestamp: new Date().toISOString(),
       })
     } catch (e: any) {
-      setError(e?.toString() || 'Request failed')
+      clearTimeout(timeoutId)
+      if (e?.name === 'AbortError') {
+        setError('请求超时（30秒）')
+      } else {
+        setError(e?.toString() || 'Request failed')
+      }
     } finally {
       setLoading(false)
     }

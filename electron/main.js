@@ -1,7 +1,10 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
-const isDev = process.env.NODE_ENV !== 'production' || !app.isPackaged
+// Detect dev mode: check if running via `electron .` with vite dev server
+const isDev = process.argv.includes('--dev') ||
+  process.env.NODE_ENV === 'development' ||
+  !app.isPackaged
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -20,9 +23,11 @@ function createWindow() {
   })
 
   if (isDev) {
-    win.loadURL('http://localhost:5173')
+    // Dev: connect to Vite dev server
+    win.loadURL('http://localhost:5173/')
     win.webContents.openDevTools()
   } else {
+    // Production: load from dist
     win.loadFile(path.join(__dirname, '../dist/index.html'))
   }
 }
