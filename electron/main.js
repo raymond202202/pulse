@@ -17,7 +17,7 @@ function createWindow() {
     minHeight: 600,
     title: 'Pulse',
     icon: path.join(__dirname, '../resources/icon.png'),
-    autoHideMenuBar: true,  // 防 Wayland 下闪烁
+    autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -28,10 +28,18 @@ function createWindow() {
 
   if (isDev) {
     win.loadURL('http://localhost:5173/')
-    win.webContents.openDevTools()
   } else {
     win.loadFile(path.join(__dirname, '../dist/index.html'))
   }
+
+  // F12 / Ctrl+Shift+I 开关 DevTools（开发调试用）
+  win.webContents.on('before-input-event', (event, input) => {
+    if (input.key === 'F12' ||
+        (input.control && input.shift && input.key === 'I') ||
+        (input.meta && input.alt && input.key === 'I')) {
+      win.webContents.toggleDevTools()
+    }
+  })
 }
 
 // IPC: 文件选择对话框 (用于导入)
