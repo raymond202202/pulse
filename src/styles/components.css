@@ -397,6 +397,18 @@
 }
 .request-tab-add:hover { color: var(--pulse-primary); background: var(--pulse-primary-bg); }
 
+.request-tab-edit-input {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--pulse-primary);
+  border-radius: 3px;
+  color: var(--text-primary);
+  font-size: 10px;
+  padding: 1px 4px;
+  outline: none;
+  width: 120px;
+  font-family: inherit;
+}
+
 /* =============================================
    Request Builder
    ============================================= */
