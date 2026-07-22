@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Activity, Sun, Moon, Settings } from 'lucide-react'
 import { useThemeStore } from '../../stores/themeStore'
+import { SettingsModal } from './SettingsModal'
 
 interface Props {
   leftSidebar?: React.ReactNode
@@ -74,39 +75,7 @@ export function MainLayout({ leftSidebar, rightSidebar, children }: Props) {
       </footer>
 
       {/* Settings Modal */}
-      {showSettings && (
-        <div className="settings-overlay" onClick={() => setShowSettings(false)}>
-          <div className="settings-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="settings-header">
-              <Settings size={14} />
-              <span>设置</span>
-            </div>
-            <div className="settings-body">
-              <div className="settings-about">
-                <div className="settings-row">
-                  <span className="settings-label">应用名称</span>
-                  <span className="settings-value">Pulse</span>
-                </div>
-                <div className="settings-row">
-                  <span className="settings-label">版本</span>
-                  <span className="settings-value">{__APP_VERSION__}</span>
-                </div>
-                <div className="settings-row">
-                  <span className="settings-label">技术栈</span>
-                  <span className="settings-value">Electron + React 19 + Vite 6</span>
-                </div>
-                <div className="settings-row">
-                  <span className="settings-label">Git 提交</span>
-                  <span className="settings-value">v{__APP_VERSION__}</span>
-                </div>
-              </div>
-            </div>
-            <div className="settings-footer">
-              <span className="settings-more">更多设置项将在后续版本添加 → 见 docs/SETTINGS_PLAN.md</span>
-            </div>
-          </div>
-        </div>
-      )}
+      {showSettings && <SettingsModal onClose={() => setShowSettings(false)} />}
     </div>
   )
 }

@@ -1,0 +1,42 @@
+{
+  "project": "pulse",
+  "version": "v0.8.0",
+  "last_session": "2026-07-23 07:16",
+  "next_tasks": [
+    "完善设置页面：将代理设置在请求中生效",
+    "继续 Phase 3 剩余功能：响应 Body 语法高亮、请求历史可恢复完整状态",
+    "Phase 4：AI 面板增强（选择模型、流式输出等）",
+    "导入/导出增强：支持更多格式"
+  ],
+  "git_tags": [
+    "v0.1.0 骨架",
+    "v0.2.0 多Tab",
+    "v0.3.0 标签持久化+重命名",
+    "v0.4.0 复制响应+Ctrl+Enter",
+    "v0.5.0 超时+生产模式",
+    "v0.6.0 集合+环境+导入导出",
+    "v0.6.1 文件导入+移除菜单",
+    "v0.7.0 版本号+设置入口+历史可点击",
+    "v0.7.1 DevTools F12开关",
+    "v0.8.0 设置面板+AI集成"
+  ],
+  "current_status": "设置面板(通用/AI/代理/关于)已完成。AI已接入DeepSeek/OpenAI/自定义Endpoint。需要填API Key才能用。",
+  "workflow": {
+    "bump_version": "bash scripts/bump-version.sh 新版号",
+    "build": "npx vite build",
+    "commit": "git add -A && git commit -m \"v新版号 - 描述\" && git tag v新版号",
+    "restart": "先kill旧进程再启动vite+electron"
+  },
+  "auto_resume": {
+    "cron_job_id": "de157f88e363",
+    "cron_schedule": "45 7 * * * (每天7:45)",
+    "cron_skill": "pulse-dev",
+    "cron_deliver": "all (飞书/Telegram/本地全部推送)",
+    "note": "系统更新(07:30)后会重启Hermes，07:45 cron自动恢复迭代。交付到所有渠道，用户在任何地方都能看到进度。"
+  },
+  "restore_commands": [
+    "cd ~/hermes-projects/pulse && npx vite build",
+    "cd ~/hermes-projects/pulse && git log --oneline --decorate | head -5",
+    "pwd"
+  ]
+}

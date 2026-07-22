@@ -1553,3 +1553,140 @@
   font-size: 9px;
   color: var(--text-placeholder);
 }
+
+/* Expanded Settings */
+.settings-modal-wide {
+  width: 560px;
+  max-height: 70vh;
+}
+.settings-close-btn {
+  margin-left: auto;
+  padding: 3px;
+  color: var(--text-muted);
+  border-radius: 4px;
+}
+.settings-close-btn:hover { color: var(--text-primary); background: var(--bg-hover); }
+
+.settings-body-hz {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.settings-tabs {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+  border-right: 1px solid var(--border-color);
+  flex-shrink: 0;
+  padding: 4px 0;
+}
+.settings-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  font-size: 11px;
+  color: var(--text-muted);
+  border-right: 2px solid transparent;
+  transition: all 0.1s;
+}
+.settings-tab:hover { color: var(--text-secondary); background: var(--bg-hover); }
+.settings-tab.active {
+  color: var(--pulse-primary);
+  background: var(--pulse-primary-bg);
+  border-right-color: var(--pulse-primary);
+}
+
+.settings-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+}
+.settings-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.settings-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.settings-field label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.settings-select, .settings-input {
+  padding: 5px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-size: 11px;
+  outline: none;
+  width: 100%;
+}
+.settings-select:focus, .settings-input:focus { border-color: var(--pulse-primary); }
+.settings-input.mono { font-family: 'SF Mono', 'Fira Code', monospace; }
+.settings-field-hint {
+  font-size: 9px;
+  color: var(--text-placeholder);
+  margin-top: 2px;
+}
+.settings-field-note {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.settings-theme-toggle {
+  display: flex;
+  gap: 4px;
+}
+.settings-theme-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  font-size: 11px;
+  color: var(--text-muted);
+  transition: all 0.15s;
+}
+.settings-theme-btn:hover { border-color: var(--pulse-primary); color: var(--pulse-primary); }
+.settings-theme-btn.active {
+  background: var(--pulse-primary);
+  color: white;
+  border-color: var(--pulse-primary);
+}
+
+.settings-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.settings-toggle input[type="checkbox"] {
+  accent-color: var(--pulse-primary);
+}
+
+.settings-about-credit {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.settings-about-links {
+  margin-top: 4px;
+}
+.settings-about-links a {
+  color: var(--pulse-primary);
+  font-size: 11px;
+}

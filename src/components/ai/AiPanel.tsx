@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAiStore } from '../../stores/aiStore'
 import { useRequestStore } from '../../stores/requestStore'
+import { useSettingsStore } from '../../stores/settingsStore'
+import { aiChat } from '../../lib/aiService'
 import { Send, Sparkles, Trash2 } from 'lucide-react'
 import type { AiMessage } from '../../types'
 
@@ -25,23 +27,24 @@ export function AiPanel() {
 
     try {
       // Build context from current request/response
-      let contextPrompt = ''
-      if (request.url) {
-        contextPrompt += `当前请求：${request.method} ${request.url}\n`
-      }
-      if (response) {
-        contextPrompt += `响应状态：${response.status} ${response.statusText}\n`
+      const settings = useSettingsStore.getState()
+
+      let systemPrompt = 'You are Pulse AI, an API testing expert. 请用中文回答。'
+      if (settings.aiContextEnabled) {
+        let ctx = ''
+        if (request.url) ctx += `当前请求：${request.method} ${request.url}\n`
+        if (request.headers.some(h => h.key)) ctx += `Headers: ${JSON.stringify(request.headers.filter(h => h.enabled && h.key))}\n`
+        if (response) ctx += `响应状态：${response.status} ${response.statusText}\n`
+        if (ctx) systemPrompt += `\n\n上下文：\n${ctx}`
       }
 
-      const fullPrompt = contextPrompt
-        ? `${contextPrompt}\n用户问题：${input}`
-        : input
-
-      // TODO: Phase 4 - integrate DeepSeek API
-      const mockReply = `[AI 集成待上线] 你问的是：${fullPrompt}\n\nDeepSeek API 将在 Phase 4 接入。`
-      addMessage({ role: 'assistant', content: mockReply })
+      const result = await aiChat({
+        messages: [...messages, userMsg],
+        systemPrompt,
+      })
+      addMessage({ role: 'assistant', content: result.content })
     } catch (e: any) {
-      addMessage({ role: 'assistant', content: `${t('aiError')}: ${e?.toString() || 'Unknown'}` })
+      addMessage({ role: 'assistant', content: `${t('aiError')}: ${e?.message || e?.toString() || 'Unknown'}` })
     } finally {
       setLoading(false)
     }
