@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, ipcMain, dialog } = require('electron')
+const { app, BrowserWindow, Menu, ipcMain, dialog, session } = require('electron')
 const path = require('path')
 const fs = require('fs')
 
@@ -54,6 +54,22 @@ ipcMain.handle('dialog:openFile', async () => {
   if (result.canceled || result.filePaths.length === 0) return null
   const content = fs.readFileSync(result.filePaths[0], 'utf-8')
   return content
+})
+
+// IPC: 代理配置
+ipcMain.handle('proxy:setConfig', async (event, config) => {
+  const { httpProxy, httpsProxy, noProxy } = config
+  const rules = []
+  if (httpProxy) rules.push(`http=${httpProxy}`)
+  if (httpsProxy) rules.push(`https=${httpsProxy || httpProxy}`)
+  try {
+    await session.defaultSession.setProxy({
+      proxyRules: rules.join(';'),
+      proxyBypassRules: noProxy || '',
+    })
+  } catch (e) {
+    console.error('代理配置失败:', e)
+  }
 })
 
 app.whenReady().then(createWindow)

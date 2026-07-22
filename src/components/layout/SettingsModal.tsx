@@ -190,8 +190,8 @@ function ProxyTab({ settings, update }: { settings: AppSettings; update: (p: Par
         <label>HTTP 代理</label>
         <input
           type="text"
-          value={(settings as any).httpProxy || ''}
-          onChange={(e) => update({ ...settings, httpProxy: e.target.value } as any)}
+          value={settings.httpProxy}
+          onChange={(e) => update({ httpProxy: e.target.value })}
           placeholder="http://127.0.0.1:7890"
           className="settings-input mono"
         />
@@ -200,8 +200,8 @@ function ProxyTab({ settings, update }: { settings: AppSettings; update: (p: Par
         <label>HTTPS 代理</label>
         <input
           type="text"
-          value={(settings as any).httpsProxy || ''}
-          onChange={(e) => update({ ...settings, httpsProxy: e.target.value } as any)}
+          value={settings.httpsProxy}
+          onChange={(e) => update({ httpsProxy: e.target.value })}
           placeholder="http://127.0.0.1:7890"
           className="settings-input mono"
         />
@@ -210,15 +210,15 @@ function ProxyTab({ settings, update }: { settings: AppSettings; update: (p: Par
         <label>绕过代理</label>
         <input
           type="text"
-          value={(settings as any).noProxy || ''}
-          onChange={(e) => update({ ...settings, noProxy: e.target.value } as any)}
+          value={settings.noProxy}
+          onChange={(e) => update({ noProxy: e.target.value })}
           placeholder="localhost, 127.0.0.1, .local"
           className="settings-input"
         />
         <span className="settings-field-hint">逗号分隔的域名列表</span>
       </div>
       <div className="settings-field">
-        <span className="settings-field-note">代理设置将在后续版本中应用到请求发送逻辑，当前仅占位</span>
+        <span className="settings-field-note">配置后立即生效，所有请求将通过代理发送</span>
       </div>
     </div>
   )
