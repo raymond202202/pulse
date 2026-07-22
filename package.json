@@ -1,6 +1,6 @@
 {
   "name": "pulse",
-  "version": "0.1.0",
+  "version": "0.7.0",
   "description": "Pulse - AI-powered API client. Take the pulse of your APIs.",
   "main": "electron/main.js",
   "scripts": {

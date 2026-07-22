@@ -1486,3 +1486,70 @@
   font-size: 10px;
   color: var(--status-ok);
 }
+
+/* =============================================
+   Settings Modal (v0.6.1 初始版)
+   ============================================= */
+.settings-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+.settings-modal {
+  width: 400px;
+  max-height: 60vh;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.settings-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 12px;
+  font-weight: 600;
+}
+.settings-body {
+  padding: 14px;
+  flex: 1;
+}
+.settings-about {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.settings-label {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.settings-value {
+  font-size: 11px;
+  color: var(--text-primary);
+  font-family: 'SF Mono', monospace;
+}
+.settings-footer {
+  padding: 8px 14px;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+}
+.settings-more {
+  font-size: 9px;
+  color: var(--text-placeholder);
+}

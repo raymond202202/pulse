@@ -1,6 +1,16 @@
 # Pulse - 变更日志
 
-## v0.5.0 → v0.6.0 (2026-07-22 夜间)
+## v0.6.1 → v0.7.0 (2026-07-22 夜间)
+- 🔢 版本号动态化（走 `__APP_VERSION__`，显示 0.7.0）
+- ⚙️ 标题栏新增齿轮设置入口（当前显示「关于」信息）
+- 🕐 历史记录可点击回溯请求
+- 📋 验收测试文档 `docs/TEST_PLAN_v0.6.1.md`（用于人工/AI 验收）
+- 📝 设置规划文档 `docs/SETTINGS_PLAN.md`
+- 🛠️ 版本号升级脚本 `scripts/bump-version.sh`
+
+## v0.6.0 → v0.6.1 (2026-07-22 夜间)
+- 📁 导入支持从文件选择（Electron 原生对话框）
+- 🚫 移除 Electron 默认菜单（File/Edit/View/Window/Help）
 - 📁 集合持久化 (localStorage) + 完整 CRUD UI
 - 🌍 环境变量持久化 + 内联编辑
 - 📥 导入 Postman v2.1 格式

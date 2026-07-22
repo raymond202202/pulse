@@ -18,4 +18,7 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
   },
+  define: {
+    __APP_VERSION__: JSON.stringify('0.7.0'),
+  },
 })
