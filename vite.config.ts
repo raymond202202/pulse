@@ -19,6 +19,6 @@ export default defineConfig({
     emptyOutDir: true,
   },
   define: {
-    __APP_VERSION__: JSON.stringify('1.0.0'),
+    __APP_VERSION__: JSON.stringify('1.0.2'),
   },
 })
