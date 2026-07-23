@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSettingsStore, type AppSettings } from '../../stores/settingsStore'
+import { useThemeStore } from '../../stores/themeStore'
 import { X, Settings, Globe, Bot, Server, Info, Sun, Moon } from 'lucide-react'
 
 interface Props {
@@ -58,11 +59,25 @@ export function SettingsModal({ onClose }: Props) {
 
 /* ---- 通用 ---- */
 function GeneralTab({ settings, update }: { settings: AppSettings; update: (p: Partial<AppSettings>) => void }) {
+  const { i18n } = useTranslation()
+
+  const handleLanguageChange = (lang: string) => {
+    update({ language: lang })
+    i18n.changeLanguage(lang)
+  }
+
+  const handleThemeChange = (theme: 'light' | 'dark') => {
+    update({ theme })
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('pulse-theme', theme)
+    useThemeStore.getState().setTheme(theme)
+  }
+
   return (
     <div className="settings-fields">
       <div className="settings-field">
         <label>界面语言</label>
-        <select value={settings.language} onChange={(e) => update({ language: e.target.value })} className="settings-select">
+        <select value={settings.language} onChange={(e) => handleLanguageChange(e.target.value)} className="settings-select">
           <option value="zh-CN">中文 (简体)</option>
           <option value="en">English</option>
         </select>
@@ -73,21 +88,13 @@ function GeneralTab({ settings, update }: { settings: AppSettings; update: (p: P
         <div className="settings-theme-toggle">
           <button
             className={`settings-theme-btn ${settings.theme === 'light' ? 'active' : ''}`}
-            onClick={() => {
-              update({ theme: 'light' })
-              document.documentElement.setAttribute('data-theme', 'light')
-              localStorage.setItem('pulse-theme', 'light')
-            }}
+            onClick={() => handleThemeChange('light')}
           >
             <Sun size={12} /> 浅色
           </button>
           <button
             className={`settings-theme-btn ${settings.theme === 'dark' ? 'active' : ''}`}
-            onClick={() => {
-              update({ theme: 'dark' })
-              document.documentElement.setAttribute('data-theme', 'dark')
-              localStorage.setItem('pulse-theme', 'dark')
-            }}
+            onClick={() => handleThemeChange('dark')}
           >
             <Moon size={12} /> 深色
           </button>
