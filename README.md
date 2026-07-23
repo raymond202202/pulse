@@ -1,16 +1,155 @@
 # Pulse
 
-> **AI-powered API client** — Take the pulse of your APIs.
+> **AI 驱动 API 测试客户端** — 给你的 API 把把脉。
 >
-> 🧠 **Built by AI** — This project was entirely developed by an AI agent (Hermes Agent by Nous Research) under human direction.
+> 🧠 **由 AI 构建** — 本项目由 AI 智能体（Hermes Agent by Nous Research）在人类指导下全程开发。
 
-Pulse is a desktop API client designed as a modern, lightweight alternative to Postman. It features multi-tab request editing, collection management, environment variables, AI integration, and full import/export compatibility with Postman.
+Pulse 是一款桌面 API 客户端，旨在成为 Postman 的轻量级现代替代品。支持多标签请求编辑、集合管理、环境变量、AI 集成、与 Postman 格式的导入导出。
 
 ![Tech Stack](https://img.shields.io/badge/Electron-33-blue) ![React](https://img.shields.io/badge/React-19-61dafb) ![Vite](https://img.shields.io/badge/Vite-6-646cff)
 
 ---
 
-## Features
+[English](#english) | [中文](#中文)
+
+---
+
+## 中文
+
+### 功能特性
+
+- **多标签请求** — 同时处理多个 API 请求，每个标签独立状态
+- **HTTP 方法** — GET、POST、PUT、DELETE、PATCH、HEAD、OPTIONS
+- **请求构建器** — URL 参数、请求头、请求体 (JSON/XML/表单/GraphQL/原始)、认证 (Bearer/Basic/API Key/OAuth2)
+- **响应查看器** — 格式化 JSON 语法高亮、响应头、状态/耗时/大小
+- **集合管理** — 将请求组织到集合和文件夹中，持久化到 localStorage
+- **环境变量** — 通过 `{{key}}` 语法定义变量，支持环境切换
+- **AI 集成** — 内置 AI 助手，支持 DeepSeek / OpenAI / 自定义接口
+- **导入/导出** — 支持 Postman v2.1 格式和 Pulse 原生格式
+- **代码生成** — cURL、Python、JavaScript、Go、Rust、HTTPie
+- **主题切换** — 浅色（默认）和深色主题，标题栏一键切换
+- **历史记录** — 持久化存储，点击可恢复完整请求
+- **响应搜索** — 在响应体中搜索并高亮匹配内容
+- **键盘快捷键** — Ctrl+Enter 发送请求，F12 打开开发者工具
+
+### 安装
+
+#### Linux (Fedora / RHEL / CentOS)
+
+从 [Releases](https://github.com/raymond202202/pulse/releases) 下载 `.rpm`：
+
+```bash
+sudo dnf install ./pulse-*.x86_64.rpm
+# 或
+sudo rpm -ivh pulse-*.x86_64.rpm
+```
+
+然后从应用菜单启动或运行 `pulse` 命令。
+
+#### Linux (Debian / Ubuntu)
+
+```bash
+sudo apt install alien
+sudo alien -i pulse-*.x86_64.rpm
+pulse
+```
+
+#### macOS 和 Windows
+
+当前未提供原生包，请参考下方从源码构建。
+
+### 从源码构建
+
+```bash
+git clone https://github.com/raymond202202/pulse.git
+cd pulse
+npm install
+npm run build          # 构建前端
+npm run electron:dev   # 开发模式启动 (Vite + Electron)
+```
+
+### 打包分发包
+
+```bash
+# Linux RPM
+npx electron-builder --linux rpm
+
+# macOS (需在 Mac 上执行)
+npx electron-builder --mac
+
+# Windows (需在 Windows 上执行)
+npx electron-builder --win
+```
+
+### 快速使用
+
+1. 启动 Pulse
+2. 输入 URL（如 `https://api.github.com`）
+3. 选择 HTTP 方法（默认 GET）
+4. 点击 **发送** 或按 `Ctrl+Enter`
+
+### 标签页管理
+
+- **新建标签**：点击标签栏 `+`
+- **关闭标签**：点击标签上的 `✕`（最后一个标签不能关）
+- **重命名标签**：双击标签名
+- **重启后恢复**：标签页状态自动持久化
+
+### 集合
+
+- **创建**：点击侧栏集合头部的 `+`
+- **保存请求**：鼠标悬停集合名，点击 `+` 按钮保存当前请求
+- **加载请求**：点击集合中的请求条目，自动填入 Method + URL
+- **管理**：鼠标悬停时显示编辑/删除按钮
+
+### 环境变量
+
+- **管理**：点击底部环境选择器旁的 ⚙ 图标
+- **创建**：新建环境并添加变量
+- **使用**：在 URL 和请求头中用 `{{变量名}}` 引用
+- **切换**：从下拉列表中选择环境
+
+### AI 助手
+
+1. 点击右下角 **🤖** 按钮打开 AI 面板
+2. 进入 **设置 ⚙ → AI** 标签页配置：
+   - **API 提供商**：DeepSeek（推荐）、OpenAI 或自定义
+   - **模型**：`deepseek-chat`、`gpt-4o` 或自定义
+   - **API 密钥**：填写你的密钥（仅存储在本地 localStorage）
+3. 输入问题按回车发送
+
+AI 会自动感知当前请求和响应的上下文，可以帮助你构建请求、分析响应、生成测试用例和调试问题。
+
+### 导入/导出
+
+- 点击集合头部的 **↑** 按钮
+- **导入**：粘贴 JSON 或点击「从文件选择」选取 `.json` 文件
+- 支持 Postman v2.1 格式和 Pulse 原生格式
+- **导出**：选择 Pulse 或 Postman v2.1 格式，复制或下载
+
+### 设置
+
+点击标题栏的 ⚙ 齿轮图标：
+
+| 标签页 | 设置项 |
+|--------|--------|
+| 通用 | 语言、主题、超时时间、历史上限 |
+| AI | API 提供商、接口地址、模型、密钥、上下文开关 |
+| 代理 | HTTP/HTTPS 代理 |
+| 关于 | 版本号、技术栈 |
+
+### 键盘快捷键
+
+| 快捷键 | 功能 |
+|--------|------|
+| `Ctrl+Enter` | 发送请求 |
+| `F12` | 切换开发者工具 |
+
+---
+
+## English
+
+### Features
 
 - **Multi-Tab Requests** — Work on multiple API requests simultaneously with independent state
 - **HTTP Methods** — GET, POST, PUT, DELETE, PATCH, HEAD, OPTIONS
@@ -26,31 +165,17 @@ Pulse is a desktop API client designed as a modern, lightweight alternative to P
 - **Search** — Search within response bodies with highlighted results
 - **Keyboard Shortcuts** — Ctrl+Enter to send, F12 for DevTools
 
----
+### Installation
 
-## Screenshots
-
-<!-- TODO: Add screenshots -->
-
----
-
-## Installation
-
-### Linux (Fedora / RHEL / CentOS)
+#### Linux (Fedora / RHEL / CentOS)
 
 Download the `.rpm` from [Releases](https://github.com/raymond202202/pulse/releases):
 
 ```bash
 sudo dnf install ./pulse-*.x86_64.rpm
-# or
-sudo rpm -ivh pulse-*.x86_64.rpm
 ```
 
-Then launch from your application menu or run `pulse` in terminal.
-
-### Linux (Debian / Ubuntu)
-
-An `.rpm` is provided. For Debian-based systems, convert it:
+#### Linux (Debian / Ubuntu)
 
 ```bash
 sudo apt install alien
@@ -58,143 +183,39 @@ sudo alien -i pulse-*.x86_64.rpm
 pulse
 ```
 
-### macOS
+#### macOS & Windows
 
-Currently not packaged for macOS. See [Building from source](#building-from-source) below.
+Native packages are not currently provided. See [Building from source](#building-from-source) below.
 
-To build a macOS `.dmg`:
-
-```bash
-# On a Mac:
-npm run electron:build:mac
-```
-
-Prerequisites: Xcode Command Line Tools, Node.js 18+.
-
-### Windows
-
-Currently not packaged for Windows. See [Building from source](#building-from-source) below.
-
-To build a Windows `.exe` installer:
-
-```powershell
-# On Windows:
-npm run electron:build:win
-```
-
-Prerequisites: Visual Studio Build Tools, Node.js 18+, NSIS (for installer).
-
----
-
-## Building from Source
-
-### Prerequisites
-
-- Node.js 18+ (tested with v24)
-- npm 9+
-- Git
-
-### Clone & Build
+### Building from Source
 
 ```bash
 git clone https://github.com/raymond202202/pulse.git
 cd pulse
 npm install
-npm run build          # Build the frontend
-npm run electron:dev   # Start in development mode (Vite + Electron)
+npm run build
+npm run electron:dev
 ```
 
 ### Package for Distribution
 
 ```bash
 # Linux RPM
-npm run build
 npx electron-builder --linux rpm
 
-# Linux (portable directory)
-npm run build
-npx electron-builder --linux dir
-
 # macOS (requires macOS)
-npm run build
 npx electron-builder --mac
 
 # Windows (requires Windows)
-npm run build
 npx electron-builder --win
 ```
-
-Output goes to `release/` directory.
-
-### Cross-Platform Notes
-
-| Platform | Can Build? | Notes |
-|----------|-----------|-------|
-| **Linux** | ✅ Yes | Native platform. RPM and directory builds tested on Fedora. |
-| **macOS** | ⚠️ Requires macOS | electron-builder can create `.dmg` and `.zip` but must run on macOS. Cross-compilation from Linux is not supported for macOS. |
-| **Windows** | ⚠️ Requires Windows | electron-builder can create `.exe` (NSIS) and portable `.zip`. Cross-compilation from Linux is not supported for Windows. |
-
----
-
-## Usage
 
 ### Quick Start
 
 1. Launch Pulse
-2. Enter a URL in the request bar (e.g., `https://api.github.com`)
+2. Enter a URL (e.g., `https://api.github.com`)
 3. Select HTTP method (default: GET)
 4. Click **Send** or press `Ctrl+Enter`
-
-### Request Tab Management
-
-- **New tab**: Click `+` in the tab bar
-- **Close tab**: Click `✕` on the tab (can't close the last tab)
-- **Rename tab**: Double-click the tab name
-- **Tabs persist** across app restarts
-
-### Collections
-
-- **Create**: Click `+` in the Collections sidebar header
-- **Save request**: Click the `+` button next to a collection name to save the current request
-- **Load request**: Click any request in a collection to restore method + URL
-- **Rename/Delete**: Use the icons that appear when hovering over a collection
-
-### Environment Variables
-
-- **Manage**: Click the ⚙ gear icon next to the environment selector at the bottom of the sidebar
-- **Create**: Add a new environment with named variables
-- **Use**: Reference variables with `{{variableName}}` in URLs and header values
-- **Switch**: Select environments from the dropdown
-
-### AI Assistant
-
-1. Click the **🤖** button (bottom-right corner) to open the AI panel
-2. Go to **Settings ⚙ → AI** tab
-3. Configure:
-   - **API Provider**: DeepSeek (recommended), OpenAI, or Custom
-   - **Model**: `deepseek-chat`, `gpt-4o`, or custom
-   - **API Key**: Your API key (stored locally in your browser's localStorage)
-4. Type your question and press Enter
-
-The AI has context of your current request and response — it can help build requests, analyze responses, generate test cases, and debug issues.
-
-### Import / Export
-
-- Click the **↑** (upload) button in the Collections header
-- **Import**: Paste JSON or click "从文件选择" to pick a `.json` file
-- Supports Postman v2.1 format and Pulse native format
-- **Export**: Choose Pulse or Postman v2.1 format, copy or download
-
-### Settings
-
-Click the ⚙ gear icon in the title bar to open Settings:
-
-| Tab | Settings |
-|-----|----------|
-| General | Language (中文/English), Theme (Light/Dark), Request timeout, History limit |
-| AI | API provider, endpoint, model, API key, context toggle |
-| Proxy | HTTP/HTTPS proxy (applied via Electron) |
-| About | Version, tech stack |
 
 ### Keyboard Shortcuts
 
@@ -216,22 +237,18 @@ Click the ⚙ gear icon in the title bar to open Settings:
 | Code Editor | Monaco Editor |
 | Icons | Lucide React |
 | Internationalization | i18next + react-i18next |
-| Styling | Pure CSS with CSS Variables (no Tailwind) |
+| Styling | Pure CSS with CSS Variables |
 | Packaging | electron-builder |
 
 ---
 
-## Project Artifacts
+## Cross-Platform Notes
 
-Files generated during this project:
-
-| File | Purpose |
-|------|---------|
-| `CHANGELOG.md` | Version history (v0.1.0 → v0.9.1) |
-| `docs/TEST_PLAN_v0.9.1.md` | Acceptance test plan |
-| `docs/SETTINGS_PLAN.md` | Settings feature roadmap |
-| `scripts/bump-version.sh` | Version bump helper |
-| `.pulse-state.json` | AI agent iteration state |
+| Platform | Can Build? | Notes |
+|----------|-----------|-------|
+| **Linux** | ✅ Yes | RPM and directory builds tested on Fedora 44. |
+| **macOS** | ⚠️ Requires macOS | electron-builder can create `.dmg` but must run on macOS. |
+| **Windows** | ⚠️ Requires Windows | electron-builder can create `.exe` (NSIS) but must run on Windows. |
 
 ---
 
@@ -244,5 +261,5 @@ MIT
 ## Credits
 
 - **Author**: [raymond202202](https://github.com/raymond202202)
-- **AI Agent**: [Hermes Agent](https://hermes-agent.nousresearch.com) by Nous Research
+- **AI Agent**: [Hermes Agent](https://hermes-agent.nousresearch.com) by Nous Research — This project was entirely developed by AI under human direction.
 - **Inspiration**: The original Pulse concept by Comate/WPS
