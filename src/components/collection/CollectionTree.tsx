@@ -40,7 +40,7 @@ export function CollectionTree() {
             autoFocus
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
-            onKeyDown={(e) => { if (e.key === 'Enter') handleAdd(); if (e.key === 'Escape') setAdding(false) }}
+            onKeyDown={(e) => { if (e.key === 'Enter' && !e.nativeEvent.isComposing) handleAdd(); if (e.key === 'Escape') setAdding(false) }}
             placeholder={t('collectionName')}
             className="collection-name-input"
           />
@@ -95,7 +95,7 @@ function CollectionGroup({ collection }: { collection: import('../../types').Col
             value={editName}
             onChange={(e) => setEditName(e.target.value)}
             onBlur={handleRename}
-            onKeyDown={(e) => { if (e.key === 'Enter') handleRename(); if (e.key === 'Escape') setEditing(false) }}
+            onKeyDown={(e) => { if (e.key === 'Enter' && !e.nativeEvent.isComposing) handleRename(); if (e.key === 'Escape') setEditing(false) }}
             className="collection-rename-input"
             onClick={(e) => e.stopPropagation()}
           />

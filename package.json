@@ -1,14 +1,79 @@
 {
   "name": "pulse",
-  "version": "0.9.1",
+  "version": "1.0.0",
   "description": "Pulse - AI-powered API client. Take the pulse of your APIs.",
+  "author": "raymond202202",
+  "license": "MIT",
+  "homepage": "https://github.com/raymond202202",
   "main": "electron/main.js",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "electron:dev": "concurrently \"vite\" \"wait-on http://localhost:5173 && electron .\"",
-    "electron:build": "vite build && electron-builder"
+    "electron:build": "vite build && electron-builder",
+    "electron:build:rpm": "vite build && electron-builder --linux rpm"
+  },
+  "build": {
+    "appId": "com.pulse.app",
+    "productName": "Pulse",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "resources/**/*"
+    ],
+    "linux": {
+      "target": [
+        "rpm",
+        "dir"
+      ],
+      "category": "Development",
+      "icon": "resources/icon.png",
+      "artifactName": "${name}-${version}-${arch}.${ext}",
+      "executableName": "pulse"
+    },
+    "rpm": {
+      "maintainer": "Pulse Project",
+      "depends": [
+        "libX11",
+        "libxcb",
+        "libXcomposite",
+        "libXcursor",
+        "libXdamage",
+        "libXext",
+        "libXfixes",
+        "libXi",
+        "libXrandr",
+        "libXrender",
+        "libXtst",
+        "libXScrnSaver",
+        "alsa-lib",
+        "atk",
+        "cairo",
+        "cups-libs",
+        "dbus-libs",
+        "expat",
+        "fontconfig",
+        "freetype",
+        "gcc",
+        "glib2",
+        "gtk3",
+        "libappindicator-gtk3",
+        "libdrm",
+        "libnotify",
+        "libpcap",
+        "libsecret",
+        "libxkbcommon",
+        "mesa-libgbm",
+        "nspr",
+        "nss",
+        "pango",
+        "zlib"
+      ]
+    }
   },
   "dependencies": {
     "react": "^19.0.0",

@@ -55,7 +55,7 @@ export function EnvironmentSelector() {
             <input
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
-              onKeyDown={(e) => { if (e.key === 'Enter') handleAdd() }}
+              onKeyDown={(e) => { if (e.key === 'Enter' && !e.nativeEvent.isComposing) handleAdd() }}
               placeholder={t('environment')}
               className="env-manager-input"
             />
@@ -98,7 +98,7 @@ function EnvironmentItem({ env }: { env: import('../../types').Environment }) {
             value={editName}
             onChange={(e) => setEditName(e.target.value)}
             onBlur={handleRename}
-            onKeyDown={(e) => { if (e.key === 'Enter') handleRename(); if (e.key === 'Escape') setEditing(false) }}
+            onKeyDown={(e) => { if (e.key === 'Enter' && !e.nativeEvent.isComposing) handleRename(); if (e.key === 'Escape') setEditing(false) }}
             className="env-rename-input"
           />
         ) : (

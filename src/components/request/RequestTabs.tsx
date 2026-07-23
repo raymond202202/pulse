@@ -74,7 +74,7 @@ function TabItem({
           value={editValue}
           onChange={(e) => setEditValue(e.target.value)}
           onBlur={handleSubmit}
-          onKeyDown={(e) => { if (e.key === 'Enter') handleSubmit(); if (e.key === 'Escape') setEditing(false) }}
+          onKeyDown={(e) => { if (e.key === 'Enter' && !e.nativeEvent.isComposing) handleSubmit(); if (e.key === 'Escape') setEditing(false) }}
           onClick={(e) => e.stopPropagation()}
         />
       </div>

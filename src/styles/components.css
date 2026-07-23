@@ -427,11 +427,11 @@
 }
 
 .method-select {
-  padding: 5px 8px;
+  padding: 6px 10px;
   border: 1px solid var(--border-color);
   border-radius: 5px;
   background: var(--bg-tertiary);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   font-family: 'SF Mono', 'Fira Code', monospace;
   outline: none;
@@ -442,12 +442,12 @@
 
 .url-input {
   flex: 1;
-  padding: 5px 10px;
+  padding: 6px 12px;
   border: 1px solid var(--border-color);
   border-radius: 5px;
   background: var(--bg-tertiary);
   color: var(--text-primary);
-  font-size: 12px;
+  font-size: 13px;
   font-family: 'SF Mono', 'Fira Code', monospace;
   outline: none;
 }
@@ -479,8 +479,8 @@
   border-bottom: 1px solid var(--border-color);
 }
 .tab-btn {
-  padding: 6px 12px;
-  font-size: 11px;
+  padding: 7px 14px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-muted);
   border-bottom: 2px solid transparent;
@@ -593,12 +593,12 @@
   flex-shrink: 0;
 }
 .kv-input {
-  padding: 3px 6px;
+  padding: 4px 8px;
   border: 1px solid var(--border-color);
-  border-radius: 3px;
+  border-radius: 4px;
   background: var(--bg-tertiary);
   color: var(--text-primary);
-  font-size: 11px;
+  font-size: 12px;
   font-family: 'SF Mono', 'Fira Code', monospace;
   outline: none;
 }
@@ -654,8 +654,8 @@
 .response-stat {
   display: flex;
   align-items: center;
-  gap: 3px;
-  font-size: 11px;
+  gap: 4px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 .status-neutral { color: var(--text-muted); }
@@ -677,8 +677,8 @@
   overflow: auto;
 }
 .response-headers {
-  padding: 8px 12px;
-  font-size: 11px;
+  padding: 10px 14px;
+  font-size: 12px;
   font-family: 'SF Mono', 'Fira Code', monospace;
 }
 .response-header-row {
@@ -690,8 +690,8 @@
 .rh-value { color: var(--text-secondary); word-break: break-all; }
 
 .response-body-text {
-  padding: 12px;
-  font-size: 11px;
+  padding: 14px;
+  font-size: 13px;
   font-family: 'SF Mono', 'Fira Code', monospace;
   color: var(--text-primary);
   white-space: pre-wrap;
@@ -770,9 +770,9 @@
 
 .ai-msg-bubble {
   max-width: 90%;
-  padding: 6px 10px;
+  padding: 8px 12px;
   border-radius: 8px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
 }
 .ai-msg.user .ai-msg-bubble {
@@ -822,12 +822,12 @@
 }
 .ai-textarea {
   flex: 1;
-  padding: 6px 10px;
+  padding: 8px 12px;
   border: 1px solid var(--border-color);
   border-radius: 6px;
   background: var(--bg-tertiary);
   color: var(--text-primary);
-  font-size: 11px;
+  font-size: 12px;
   resize: none;
   outline: none;
   line-height: 1.4;

@@ -1,5 +1,11 @@
 # Pulse - 变更日志
 
+## v0.9.0 → v0.9.1 (2026-07-23)
+- 🌐 代理配置正式生效：HTTP/HTTPS 代理设置通过 Electron session.setProxy 应用到所有请求
+- 🎯 移除"当前仅占位"提示，改成"配置后立即生效"
+- 🏗️ AppSettings 接口添加 httpProxy / httpsProxy / noProxy 字段（移除 as any 类型转换）
+- 🔌 preload.js + main.js 添加 IPC 通道：启动时自动同步已保存的代理配置，变更时即时生效
+
 ## v0.6.1 → v0.7.0 (2026-07-22 夜间)
 - 🔢 版本号动态化（走 `__APP_VERSION__`，显示 0.7.0）
 - ⚙️ 标题栏新增齿轮设置入口（当前显示「关于」信息）
