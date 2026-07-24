@@ -1,1 +1,0 @@
-electron, api-client, postman-alternative, desktop-app, react, typescript, http, tools, ai, hermes
