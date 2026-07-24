@@ -263,3 +263,14 @@ MIT
 - **Author**: [raymond202202](https://github.com/raymond202202)
 - **AI Agent**: [Hermes Agent](https://hermes-agent.nousresearch.com) by Nous Research — This project was entirely developed by AI under human direction.
 - **Inspiration**: The original Pulse concept by Comate/WPS
+
+
+---
+
+## 🤖 AI 辅助声明
+
+本项目由 AI 智能体（Hermes Agent by Nous Research）辅助开发。从架构设计、前端开发到后端集成与文档撰写均由 AI 在人类指导下完成。人工负责需求提出、功能验收和最终发布。
+
+## 🤖 AI Assistance Declaration
+
+This project was developed with assistance from an AI agent (Hermes Agent by Nous Research). From architecture design and frontend development to backend integration and documentation, all work was done by AI under human guidance. Human contributors were responsible for requirements definition, feature validation, and final release.
